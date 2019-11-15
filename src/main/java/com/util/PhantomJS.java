@@ -14,22 +14,26 @@ public class PhantomJS {
 	 * @return 返回网页内容
 	 * @throws IOException
 	 */
-	public static String getAjaxCotnent(String url) throws IOException {
-		String directory = System.getProperty("user.dir");
-		StringBuffer cmd = new StringBuffer();
-		cmd.append(directory).append("\\PhantomJS\\phantomjs.exe ")
-				.append(directory).append("\\PhantomJS\\crawler_js\\crawler.js ")
-				.append(url);
-		Runtime rt = Runtime.getRuntime();
-		Process p = rt.exec(cmd.toString());
-		InputStream is = p.getInputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(is,
-				"utf-8"));
-		StringBuffer sbf = new StringBuffer();
-		String tmp = "";
-		while ((tmp = br.readLine()) != null) {
-			sbf.append(tmp).append("\n");
-		}
+	public static String getAjaxContent(String url){
+        StringBuffer sbf = new StringBuffer();
+	    try {
+            String directory = System.getProperty("user.dir");
+            StringBuffer cmd = new StringBuffer();
+            cmd.append(directory).append("\\PhantomJS\\phantomjs.exe ")
+                    .append(directory).append("\\PhantomJS\\crawler_js\\crawler.js ")
+                    .append(url);
+            Runtime rt = Runtime.getRuntime();
+            Process p = rt.exec(cmd.toString());
+            InputStream is = p.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is,
+                    "utf-8"));
+            String tmp = "";
+            while ((tmp = br.readLine()) != null) {
+                sbf.append(tmp).append("\n");
+            }
+        }catch (Exception e){
+	        e.printStackTrace();
+        }
 		return sbf.toString();
 	}
 }
